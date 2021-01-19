@@ -1,0 +1,24 @@
+<div id="groups">
+	<div *ngFor="let g of groups">
+		<div>
+			<h3>{{g.title}}</h3>
+			<div id="{{g.id}}" cdkDropList class="example-list" [cdkDropListConnectedTo]="itemList_ids" [cdkDropListData]="g.items"
+			 (cdkDropListDropped)="drop($event)">       
+				<div  class="example-box" *ngFor="let ingr of g.items" cdkDrag>
+					 <div id="{{ingr.id}}" cdkDropList [cdkDropListConnectedTo]="itemList_ids"
+                  [cdkDropListData]="ingr.children" (cdkDropListEnterPredicate)="predicate($event)" (cdkDropListDropped)="drop($event)" cdkDragHandle>
+                    <div class="d-flex">
+                      <div>
+                        <span style="cursor: pointer;">{{itemList_ids}} - id {{ingr.id}} {{ingr.title}}</span>
+                      </div>                      
+                    </div>
+                    <div class="example-list list-group" >
+                      <div class="example-box" *ngFor="let child of ingr.children; let ci = index" cdkDrag>
+                        <div>{{itemList_ids}} - id {{ingr.id}} {{child.title}}</div>
+                      </div>
+                    </div>
+                  </div>
+				</div>
+			</div>
+		</div>
+	</div>	
